@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/style.css">
+
+    <title>Image Prediction</title>
+  </head>
+  <body class="text-center">
+    <form class="form-signin" method=post enctype=multipart/form-data>
+        <img class="mb-4" src="/static/unicorn.png" alt="unicorn" width="128">
+        <h1 class="h3 mb-3 font-weight-normal">Prediction</h1>
+        <h5 class="h5 mb-3 font-weight-normal">Detected Image: {{ class_name }}</h5>
+        <h5 class="h6 mb-3 font-weight-normal">ImageNet Class ID: {{ class_id }}</h5>
+    </form>
+  </body>
+</html>
