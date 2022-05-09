@@ -1,11 +1,29 @@
 import os
+import threading
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, json, render_template, request, redirect, url_for
+from pyngrok import ngrok
+from dotenv import load_dotenv
 
 from predict import get_prediction
 from helpers import format_class_name
 
+load_dotenv()
+
+os.environ["FLASK_ENV"] = "development"
+
 app = Flask(__name__)
+PORT = os.getenv("FLASK_PORT")
+
+
+ngrok.set_auth_token(os.getenv("NGROK_AUTH_TOKEN"))
+
+# Open a ngrok tunnel to the HTTP server
+public_url = ngrok.connect(PORT).public_url
+print(f' * ngrok tunnel "{public_url}" -> "http://127.0.0.1:{PORT}"')
+
+# Update any base URLs to use the public ngrok URL
+app.config["BASE_URL"] = public_url
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -23,5 +41,13 @@ def upload_file():
     return render_template('index.html')
 
 
+@app.route('/payload', methods=['GET', 'POST'])
+def gh_webhook():
+    if request.method == 'POST':
+        if request.headers['Content-Types'] == 'application/json':
+            return json.dumps(request.json)
+    return "GitHub webhook endpoint"
+
+
 if __name__ == '__main__':
-    app.run(debug=True, port=int(os.environ.get('PORT', 5000)))
+    threading.Thread(target=app.run, kwargs={"use_reloader": False}).start()
