@@ -1,8 +1,12 @@
 import io
+import logging
 
 from PIL import Image
 from torchvision import models
 import torchvision.transforms as transforms
+
+logging.basicConfig(format='%(name)s - %(asctime)s - %(message)s', level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 
 def get_model():
@@ -11,6 +15,7 @@ def get_model():
     return model
 
 def transform_image(image_bytes):
+    logger.debug('Trying to transform this here image!')
     my_transforms = transforms.Compose([transforms.Resize(255),
                                         transforms.CenterCrop(224),
                                         transforms.ToTensor(),
@@ -18,6 +23,8 @@ def transform_image(image_bytes):
                                             [0.485, 0.456, 0.406],
                                             [0.229, 0.224, 0.225])])
     image = Image.open(io.BytesIO(image_bytes))
+    if image:
+        logger.debug("Got image inside transform!")
     return my_transforms(image).unsqueeze(0)
 
 

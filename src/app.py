@@ -22,7 +22,7 @@ from helpers import format_class_name
 # # Update any base URLs to use the public ngrok URL
 # app.config["BASE_URL"] = public_url
 
-logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.DEBUG)
+logging.basicConfig(format='%(name)s - %(asctime)s - %(message)s', level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
