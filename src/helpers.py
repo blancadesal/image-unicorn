@@ -25,7 +25,9 @@ def transform_image(image_bytes):
     image = Image.open(io.BytesIO(image_bytes))
     if image:
         logger.debug("Got image inside transform!")
-    return my_transforms(image).unsqueeze(0)
+    result_image = my_transforms(image).unsqueeze(0)
+    logger.debug("result_image OK!")
+    return result_image
 
 
 def format_class_name(class_name):

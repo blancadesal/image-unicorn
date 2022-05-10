@@ -15,10 +15,13 @@ imagenet_class_index = json.load(open('imagenet_class_index.json'))
 
 def get_prediction(image_bytes):
     try:
+        logger.debug("Trying to create a tensor...")
         tensor = transform_image(image_bytes=image_bytes)
         logger.debug("We have a tensor!")
         outputs = model.forward(tensor)
+        logger.debug("We have outputs!")
     except Exception:
+        logger.exception("Oh no!")
         return 0, 'error'
     _, y_hat = outputs.max(1)
     predicted_idx = str(y_hat.item())
