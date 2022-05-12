@@ -5,6 +5,7 @@ from PIL import Image
 from torchvision import models
 import torchvision.transforms as transforms
 
+
 logging.basicConfig(format='%(name)s - %(asctime)s - %(message)s', level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
@@ -15,7 +16,7 @@ def get_model():
     return model
 
 def transform_image(image_bytes):
-    logger.debug('Trying to transform this here image!')
+    logger.debug('Trying to transform the image!')
     my_transforms = transforms.Compose([transforms.Resize(255),
                                         transforms.CenterCrop(224),
                                         transforms.ToTensor(),

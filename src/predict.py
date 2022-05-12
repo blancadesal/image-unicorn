@@ -1,11 +1,14 @@
 
-import logging
 import json
+import logging
+import os
 
 from helpers import get_model, transform_image
 
+
 logging.basicConfig(format='%(name)s - %(asctime)s - %(message)s', level=logging.DEBUG)
 logger = logging.getLogger(__name__)
+
 
 model = get_model()
 if model:
