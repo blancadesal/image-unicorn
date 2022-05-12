@@ -13,7 +13,7 @@ app = create_app()
 
 @app.route("/")
 def hello():
-    return "Hello, World!"
+    return "Use the /predict endpoint for image classification"
 
 
 @app.route('/predict', methods=['GET', 'POST'])
