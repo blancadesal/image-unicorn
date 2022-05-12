@@ -28,7 +28,6 @@ def transform_image(image_bytes):
     my_transforms3 = transforms.Compose([transforms.Normalize(
                                             [0.485, 0.456, 0.406],
                                             [0.229, 0.224, 0.225])])
-    image = Image.open(io.BytesIO(image_bytes))
     logger.debug("Image is ready for transform!")
     result_image1 = my_transforms1(image)
     logger.debug("Transform1 applied! (Resize, CenterCrop)")
