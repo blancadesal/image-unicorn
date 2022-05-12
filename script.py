@@ -1,19 +1,24 @@
 import io
 import logging
-
+import os
+import json
 from PIL import Image
+
 from torchvision import models
 import torchvision.transforms as transforms
-
 
 logging.basicConfig(format='%(name)s - %(asctime)s - %(message)s', level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
+image_path = ''
+image = Image.open(image_path)
 
 def get_model():
     model = models.densenet121(pretrained=True)
     model.eval()
     return model
+
+model = get_model()
 
 def transform_image(image_bytes):
     my_transforms1 = transforms.Compose([transforms.Resize(255),
@@ -35,7 +40,11 @@ def transform_image(image_bytes):
     return result_image3.unsqueeze(0)
 
 
-def format_class_name(class_name):
-    class_name = class_name.replace('_', ' ')
-    class_name = class_name.title()
-    return class_name
+
+tensor = transform_image(image)
+
+outputs = model.forward(tensor)
+_, y_hat = outputs.max(1)
+predicted_idx = str(y_hat.item())
+
+print(predicted_idx)
