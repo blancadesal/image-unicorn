@@ -1,8 +1,7 @@
 import io
 import logging
-import os
-import json
 from PIL import Image
+from pathlib import Path
 
 from torchvision import models
 import torchvision.transforms as transforms
@@ -10,7 +9,7 @@ import torchvision.transforms as transforms
 logging.basicConfig(format='%(name)s - %(asctime)s - %(message)s', level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-image_path = ''
+image_path = Path('/data/project/image-unicorn/repo/image-unicorn/test-images/dog.jpg')
 image = Image.open(image_path)
 
 def get_model():
